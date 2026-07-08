@@ -16,15 +16,10 @@ function App() {
     useState(scholarships);
 
   const handleSearch = (studentData) => {
-    // Show exactly what was submitted
-    alert(JSON.stringify(studentData, null, 2));
-
     const eligibleScholarships = getEligibleScholarships(
       studentData,
       scholarships
     );
-
-    alert(`Found ${eligibleScholarships.length} scholarship(s)`);
 
     setFilteredScholarships(eligibleScholarships);
   };

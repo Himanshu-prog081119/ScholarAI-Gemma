@@ -21,14 +21,10 @@ function ScholarshipForm({ onSearch }) {
   };
 
   const handleSubmit = (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  alert("Button clicked!");
-
-  console.log(formData);
-
-  onSearch(formData);
-};
+    onSearch(formData);
+  };
 
   return (
     <section className="bg-gradient-to-br from-blue-50 to-purple-50 py-20">
@@ -205,6 +201,28 @@ function ScholarshipForm({ onSearch }) {
 
           <p>
             <strong>State:</strong> {formData.state || "Not entered"}
+          </p>
+
+          <p>
+            <strong>Category:</strong>{" "}
+            {formData.category || "Not selected"}
+          </p>
+
+          <p>
+            <strong>Income:</strong>{" "}
+            {formData.annualFamilyIncome
+              ? `₹${formData.annualFamilyIncome}`
+              : "Not entered"}
+          </p>
+
+          <p>
+            <strong>Gender:</strong>{" "}
+            {formData.gender || "Not selected"}
+          </p>
+
+          <p>
+            <strong>Current Year:</strong>{" "}
+            {formData.currentYear || "Not selected"}
           </p>
         </div>
       </div>
