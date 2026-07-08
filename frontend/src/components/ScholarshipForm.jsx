@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function ScholarshipForm() {
+function ScholarshipForm({ onSearch }) {
   const [formData, setFormData] = useState({
     fullName: "",
     education: "",
@@ -21,9 +21,14 @@ function ScholarshipForm() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-  };
+  e.preventDefault();
+
+  alert("Button clicked!");
+
+  console.log(formData);
+
+  onSearch(formData);
+};
 
   return (
     <section className="bg-gradient-to-br from-blue-50 to-purple-50 py-20">
