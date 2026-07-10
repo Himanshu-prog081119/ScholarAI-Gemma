@@ -1,49 +1,77 @@
 function getEligibleScholarships(student, scholarships) {
-  return scholarships.filter((scholarship) => {
-    console.log("Checking:", scholarship.title);
+  const recommendations = [];
 
-    console.log("Education:", scholarship.education, student.education);
-    console.log("State:", scholarship.state, student.state);
-    console.log("Category:", scholarship.category, student.category);
-    console.log("Income:", scholarship.maxIncome, student.annualFamilyIncome);
+  scholarships.forEach((scholarship) => {
+    let score = 0;
+    const reasons = [];
 
+    // Education
     if (
-      scholarship.education &&
-      scholarship.education !== student.education
+      scholarship.education === "All" ||
+      scholarship.education === student.education
     ) {
-      console.log("Rejected: Education");
-      return false;
+      score += 35;
+      reasons.push("Matches your education");
+    } else {
+      return;
     }
 
+    // State
     if (
-      scholarship.state &&
-      scholarship.state !== "All India" &&
-      scholarship.state !== student.state
+      scholarship.state === "All India" ||
+      scholarship.state.toLowerCase() === student.state.toLowerCase()
     ) {
-      console.log("Rejected: State");
-      return false;
+      score += 20;
+      reasons.push("Available in your state");
     }
 
+    // Category
     if (
-      scholarship.category &&
-      scholarship.category !== "All" &&
-      scholarship.category !== student.category
+      scholarship.category === "All" ||
+      scholarship.category === student.category
     ) {
-      console.log("Rejected: Category");
-      return false;
+      score += 20;
+      reasons.push("Category eligible");
     }
 
+    // Gender
     if (
-      scholarship.maxIncome &&
-      Number(student.annualFamilyIncome) > scholarship.maxIncome
+      scholarship.gender === "All" ||
+      scholarship.gender === student.gender
     ) {
-      console.log("Rejected: Income");
-      return false;
+      score += 5;
+      reasons.push("Gender eligible");
     }
 
-    console.log("Accepted");
-    return true;
+    // Current Year
+    if (
+      scholarship.currentYear === "All" ||
+      scholarship.currentYear === student.currentYear
+    ) {
+      score += 5;
+      reasons.push("Eligible for your academic year");
+    }
+
+    // Income
+    if (
+      Number(student.annualFamilyIncome) <= scholarship.maxIncome
+    ) {
+      score += 15;
+      reasons.push("Income criteria satisfied");
+    } else {
+      return;
+    }
+
+    recommendations.push({
+      ...scholarship,
+      score,
+      reasons,
+    });
   });
+
+  recommendations.sort((a, b) => b.score - a.score);
+
+  return recommendations;
 }
 
 export default getEligibleScholarships;
