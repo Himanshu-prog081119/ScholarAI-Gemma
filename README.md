@@ -64,4 +64,4 @@ Gemma is used as the primary inference engine for generating natural-language ex
 
 Clone the repository:
 ```bash
-git clone https://github.com/your-username/ScholarAI-Gemma.git
+git clone https://github.com/Himanshu-prog081119/ScholarAI-Gemma.git
